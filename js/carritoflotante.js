@@ -1,4 +1,3 @@
-// carritoflotante.js
 import { loadCart, saveCart } from './storage.js';
 import { updateCartCount } from './ui.js';
 
@@ -22,19 +21,28 @@ export function renderFloatingCart(cartParam) {
   cartContainer.innerHTML = '';
 
   currentCart.forEach((item, index) => {
+    const medallonesExtra = item.opts?.medallonesExtra || 0;
+    const medallonesText = medallonesExtra > 0
+      ? `${medallonesExtra} medallón(es) extra`
+      : '';
+
     const extrasText = item.opts?.extras?.length
-      ? item.opts.extras.map(e => e.name).join(', ')
+      ? item.opts.extras.map(e => `${e.name} (+$${e.price})`).join(', ')
+      : '';
+
+    const quitadosText = item.opts?.ingredientesQuitados?.length
+      ? 'Sin: ' + item.opts.ingredientesQuitados.join(', ')
+      : '';
+
+    const tamañoText = item.opts?.tamaño
+      ? `Tamaño: ${item.opts.tamaño} (+$${item.opts.tamañoPrecio || 0})`
       : '';
 
     const aderezosText = item.opts?.aderezos?.length
-      ? item.opts.aderezos.map(a => a.name).join(', ')
+      ? item.opts.aderezos.map(a => `${a.name} (+$${a.price})`).join(', ')
       : '';
 
-    const medallonesText = item.opts?.medallones ? `${item.opts.medallones} medallón(es)` : '';
-
-    const tamañoText = item.opts?.tamaño ? `Tamaño: ${item.opts.tamaño}` : '';
-
-    const details = [medallonesText, extrasText, tamañoText, aderezosText]
+    const details = [medallonesText, extrasText, quitadosText, tamañoText, aderezosText]
       .filter(Boolean)
       .join(' | ');
 
@@ -54,8 +62,21 @@ export function renderFloatingCart(cartParam) {
     cartContainer.appendChild(div);
   });
 
-  // --- TOTAL Y BOTÓN "IR A PAGAR" ---
-  const total = currentCart.reduce((acc, item) => acc + item.precio * item.qty, 0);
+  // Calculamos total usando precio base + extras + medallones + tamaño + aderezos
+  const total = currentCart.reduce((acc, item) => {
+    let unitPrice = item.precio;
+
+    // Si es hamburguesa con medallones extra ya sumados en precio, no sumar acá, pero si usás el precio base, sumar medallonesExtra * precio por medallón si aplica.
+    // Pero ideal que precio ya tenga todo, entonces solo sumamos extras si no están incluidos.
+    // Acá asumimos que precio ya incluye medallones y extras.
+
+    // Para papas, agregamos tamaño y aderezos extra
+    if (item.categoria === 'papas') {
+      unitPrice = item.precio + (item.opts?.tamañoPrecio || 0) + (item.opts?.aderezos?.reduce((sum, a) => sum + a.price, 0) || 0);
+    }
+
+    return acc + unitPrice * item.qty;
+  }, 0);
 
   const totalDiv = document.createElement('div');
   totalDiv.id = 'cart-total';
@@ -66,7 +87,6 @@ export function renderFloatingCart(cartParam) {
   cartContainer.appendChild(totalDiv);
 
   totalDiv.querySelector('#go-to-checkout-btn').addEventListener('click', () => {
-    // Cambiá esto si tu sección checkout tiene otra ruta o URL
     window.location.href = './pages/carrito.html';
   });
 }

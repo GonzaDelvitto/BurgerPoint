@@ -1,5 +1,7 @@
+// funcionesCarrito.js
+
 export function addToCart(cart, product, opts = {}) {
-  // opts: { medallones: 1, extras: [], tamaño, tamañoPrecio, aderezos: [] }
+  // opts: { medallones: 1, medallonesPrecio, extras: [], tamaño, tamañoPrecio, aderezos: [] }
 
   const existing = cart.find(
     i => i.id === product.id && JSON.stringify(i.opts) === JSON.stringify(opts)
@@ -13,7 +15,7 @@ export function addToCart(cart, product, opts = {}) {
       nombre: product.nombre,
       precio: product.precio,
       img: product.img,
-      categoria: product.categoria,  // Importante para diferenciar papas y hamburguesas
+      categoria: product.categoria,  // Para diferenciar papas y hamburguesas
       qty: 1,
       opts,
     });
@@ -24,7 +26,7 @@ export function addToCart(cart, product, opts = {}) {
 
 export function updateQty(cart, index, qty) {
   if (qty <= 0) {
-    cart.splice(index, 1); // elimina ítem
+    cart.splice(index, 1); // eliminar ítem si qty <= 0
   } else {
     cart[index].qty = qty;
   }
@@ -36,7 +38,7 @@ export function calcTotals(cart, cashDiscountPercent = 5) {
 
   for (const it of cart) {
     if (it.categoria === 'papas') {
-      // Para papas sumamos precio base + tamaño + aderezos, luego por cantidad
+      // Para papas: precio base + tamaño + aderezos
       const tamañoPrecio = it.opts?.tamañoPrecio || 0;
       const aderezos = it.opts?.aderezos || [];
       const aderezosTotal = aderezos.reduce((sum, a) => sum + (a.price || 0), 0);
@@ -44,15 +46,12 @@ export function calcTotals(cart, cashDiscountPercent = 5) {
       const unitPrice = it.precio + tamañoPrecio + aderezosTotal;
       subtotal += unitPrice * it.qty;
     } else {
-      // Para hamburguesas: precio base * qty * medallones + extras * qty
-      const medallones = it?.opts?.medallones ?? 1;
-      subtotal += it.precio * it.qty * medallones;
+      // Para hamburguesas: usamos el precio real de los medallones que guardamos en opts
+      const medallonesPrecio = it.opts?.medallonesPrecio ?? it.precio;
+      const extrasTotal = (it.opts?.extras || []).reduce((sum, ex) => sum + (ex.price || 0), 0);
 
-      if (it?.opts?.extras?.length) {
-        for (const ex of it.opts.extras) {
-          subtotal += (ex.price || 0) * it.qty;
-        }
-      }
+      const unitPrice = medallonesPrecio + extrasTotal;
+      subtotal += unitPrice * it.qty;
     }
   }
 

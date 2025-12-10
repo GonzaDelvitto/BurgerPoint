@@ -1,13 +1,26 @@
+
 import { loadCart, saveCart } from './storage.js';
 import { updateQty, calcTotals } from './funcionesCarrito.js';
 import { formatCurrency, updateCartCount } from './ui.js';
 
 const cartContainer = document.getElementById('cart-container');
+console.log('cartContainer:', cartContainer);
+
 const totalsEl = document.getElementById('totals');
+console.log('totalsEl:', totalsEl);
+
 const checkoutBtn = document.getElementById('checkout-btn');
+console.log('checkoutBtn:', checkoutBtn);
+
 const customerNameInput = document.getElementById('customer-name');
+console.log('customerNameInput:', customerNameInput);
+
 const customerAddressInput = document.getElementById('customer-address');
+console.log('customerAddressInput:', customerAddressInput);
+
 const paymentMethodSelect = document.getElementById('payment-method');
+console.log('paymentMethodSelect:', paymentMethodSelect);
+
 
 let cart = loadCart();
 
@@ -35,7 +48,6 @@ function renderCart() {
         ? aderezos.map(a => `${a.name} (+${formatCurrency(a.price)})`).join(', ')
         : 'Ninguno';
 
-      // Precio unitario = base + tamañoPrecio + suma precios aderezos
       const aderezosPrecio = aderezos.reduce((sum, a) => sum + (a.price || 0), 0);
       const unitPrice = item.precio + tamañoPrecio + aderezosPrecio;
 
@@ -48,34 +60,41 @@ function renderCart() {
           <p>Precio unitario ajustado: ${formatCurrency(unitPrice)}</p>
           <label>
             Cantidad:
-            <input type="number" min="0" class="qty-input" data-index="${index}" value="${item.qty}" />
+            <input type="number" min="1" class="qty-input" data-index="${index}" value="${item.qty}" />
           </label>
           <button class="btn-remove" data-index="${index}">Eliminar</button>
         </div>
       `;
     } else {
-      // Hamburguesas con medallones y extras
-      const medallones = item.opts?.medallones || 1;
+      // Hamburguesas con medallonesExtra, extras y ingredientesQuitados
+      const medallonesExtra = item.opts?.medallonesExtra || 0;
+      const medallonesTotal = 1 + medallonesExtra;
       const extras = item.opts?.extras || [];
+      const ingredientesQuitados = item.opts?.ingredientesQuitados || [];
 
       const extrasDesc = extras.length > 0
         ? extras.map(e => `${e.name} (+${formatCurrency(e.price)})`).join(', ')
         : 'Ninguno';
 
-      const medallonesPriceExtra = medallones > 1 ? item.precio * (medallones - 1) : 0;
+      const quitadosDesc = ingredientesQuitados.length > 0
+        ? ingredientesQuitados.join(', ')
+        : 'Ninguno';
+
+      const medallonesPriceExtra = medallonesExtra * item.precio;
       const extrasPrice = extras.reduce((sum, ex) => sum + (ex.price || 0), 0);
-      const unitPrice = item.precio + extrasPrice + medallonesPriceExtra;
+      const unitPrice = item.precio + medallonesPriceExtra + extrasPrice;
 
       div.innerHTML = `
         <img src="../${item.img}" alt="${item.nombre}" />
         <div class="cart-item-details">
           <h3>${item.nombre}</h3>
-          <p>Medallones: ${medallones} (Extra: ${formatCurrency(medallonesPriceExtra)})</p>
+          <p>Medallones: ${medallonesTotal} (Extras: ${formatCurrency(medallonesPriceExtra)})</p>
           <p>Extras: ${extrasDesc}</p>
+          <p>Sin: ${quitadosDesc}</p>
           <p>Precio unitario ajustado: ${formatCurrency(unitPrice)}</p>
           <label>
             Cantidad:
-            <input type="number" min="0" class="qty-input" data-index="${index}" value="${item.qty}" />
+            <input type="number" min="1" class="qty-input" data-index="${index}" value="${item.qty}" />
           </label>
           <button class="btn-remove" data-index="${index}">Eliminar</button>
         </div>
@@ -105,7 +124,7 @@ cartContainer.addEventListener('input', e => {
   if (e.target.classList.contains('qty-input')) {
     const index = parseInt(e.target.dataset.index, 10);
     const qty = parseInt(e.target.value, 10);
-    if (!isNaN(index) && !isNaN(qty)) {
+    if (!isNaN(index) && qty > 0) {
       cart = updateQty(cart, index, qty);
       saveCart(cart);
       renderCart();
@@ -170,11 +189,15 @@ checkoutBtn.addEventListener('click', () => {
         : 'Ninguno';
       msg += `- ${item.nombre} x${item.qty} (Tamaño: ${tamaño}, Aderezos: ${aderezosDesc})\n`;
     } else {
-      const medallones = item.opts?.medallones || 1;
+      const medallonesExtra = item.opts?.medallonesExtra || 0;
+      const medallonesTotal = 1 + medallonesExtra;
       const extrasDesc = (item.opts?.extras && item.opts.extras.length)
         ? item.opts.extras.map(e => e.name).join(', ')
         : 'Ninguno';
-      msg += `- ${item.nombre} x${item.qty} (Medallones: ${medallones}, Extras: ${extrasDesc})\n`;
+      const quitadosDesc = (item.opts?.ingredientesQuitados && item.opts.ingredientesQuitados.length)
+        ? item.opts.ingredientesQuitados.join(', ')
+        : 'Ninguno';
+      msg += `- ${item.nombre} x${item.qty} (Medallones: ${medallonesTotal}, Extras: ${extrasDesc}, Sin: ${quitadosDesc})\n`;
     }
   });
   msg += `\n*Total:* $${total.toLocaleString('es-AR')}\n`;
