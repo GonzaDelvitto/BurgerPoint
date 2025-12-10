@@ -1,0 +1,162 @@
+[
+  {
+    "id": "1",
+    "nombre": "HBQ SIMPLE",
+    "img": "img/hbqsimple.png",
+    "precio": 10350,
+    "categoria": "simple",
+    "descripcion": "Una hamburguesa sencilla, con salsa BBQ (Barbecue) y quizás queso y/o tocino."
+  },
+  {
+    "id": "2",
+    "nombre": "CHEESE BACON SIMPLE",
+    "img": "img/cheesebaconsimple.png",
+    "precio": 10350,
+    "categoria": "simple",
+    "descripcion": "La clásica hamburguesa con queso (cheese) y tocino (bacon). Simple significa una sola carne."
+  },
+  {
+    "id": "3",
+    "nombre": "AMERICAN BURGER DOBLE",
+    "img": "img/americanburgerdoble.png",
+    "precio": 10500,
+    "categoria": "doble",
+    "descripcion": "Una hamburguesa con dos carnes y los ingredientes típicos de una hamburguesa americana (queso americano, pepinillos, aderezos)."
+  },
+  {
+    "id": "4",
+    "nombre": "CUARTITO SIMPLE",
+    "img": "img/cuartitosimple.png",
+    "precio": 10350,
+    "categoria": "simple",
+    "descripcion": "Probablemente una versión de una hamburguesa clásica conocida como \"Cuarto de Libra\", con una sola carne y queso, estilo especial de la casa."
+  },
+  {
+    "id": "5",
+    "nombre": "CLASSIC SIMPLE",
+    "img": "img/classicsimple.png",
+    "precio": 9800,
+    "categoria": "simple",
+    "descripcion": "La versión más básica, con una sola carne. Típicamente lleva queso, lechuga, tomate, cebolla y aderezos clásicos (ketchup/mostaza/mayonesa)."
+  },
+  {
+    "id": "6",
+    "nombre": "BACON DOUBLE",
+    "img": "img/bacondouble.png",
+    "precio": 15000,
+    "categoria": "doble",
+    "descripcion": "Una hamburguesa con dos carnes y abundante tocino."
+  },
+  {
+    "id": "7",
+    "nombre": "CHEESE DOUBLE",
+    "img": "img/cheesedouble.png",
+    "precio": 14000,
+    "categoria": "doble",
+    "descripcion": "Una hamburguesa con dos carnes y queso, la versión doble de la clásica \"cheeseburger\"."
+  },
+  {
+    "id": "8",
+    "nombre": "SPICY DOUBLE",
+    "img": "img/spicydouble.png",
+    "precio": 14800,
+    "categoria": "doble",
+    "descripcion": "Una hamburguesa con dos carnes que incluye algún elemento picante como salsa picante, jalapeños, o un relish picante."
+  },
+  {
+    "id": "9",
+    "nombre": "TRIPLE KING",
+    "img": "img/tripleking.png",
+    "precio": 18500,
+    "categoria": "triple",
+    "descripcion": "Una hamburguesa gigante con tres carnes, probablemente coronada con queso y otros toppings especiales."
+  },
+  {
+    "id": "10",
+    "nombre": "MEGA TRIPLE CHEESE",
+    "img": "img/megatriplecheese.png",
+    "precio": 19000,
+    "categoria": "triple",
+    "descripcion": "Una hamburguesa con tres carnes con una cantidad extra grande de queso."
+  },
+  {
+    "id": "11",
+    "nombre": "BACON TRIPLE STACK",
+    "img": "img/baconstanktriple.png",
+    "precio": 19500,
+    "categoria": "triple",
+    "descripcion": "Una hamburguesa de tres carnes apiladas (stack) con mucho tocino."
+  },
+  {
+    "id": "12",
+    "nombre": "SPICY TRIPLE BURGER",
+    "img": "img/spicytriple.png",
+    "precio": 18800,
+    "categoria": "triple",
+    "descripcion": "Una hamburguesa de tres carnes con un componente picante."
+  },
+  {
+    "id": "13",
+    "nombre": "MUSHROOM SIMPLE",
+    "img": "img/mushroomsimple.png",
+    "precio": 11000,
+    "categoria": "simple",
+    "descripcion": "Una hamburguesa de una sola carne cubierta con champiñones salteados, usualmente con queso suizo o similar."
+  },
+  {
+    "id": "14",
+    "nombre": "BBQ BACON DOUBLE",
+    "img": "img/bbqbacondoble.png",
+    "precio": 15500,
+    "categoria": "doble",
+    "descripcion": "Una hamburguesa con dos carnes, salsa BBQ y tocino."
+  },
+  {
+    "id": "15",
+    "nombre": "JALAPENO TRIPLE",
+    "img": "img/jalapenotriple.png",
+    "precio": 19200,
+    "categoria": "triple",
+    "descripcion": "Una hamburguesa de tres carnes con el toque picante y crujiente de los jalapeños."
+  },
+  {
+    "id": "16",
+    "nombre": "GOLDEN FRITES",
+    "img": "img/goldenfrites.png",
+    "precio": 400,
+    "categoria": "papas",
+    "descripcion": "Papas fritas clásicas, crujientes y doradas."
+  },
+  {
+    "id": "17",
+    "nombre": "FUEGO FRIES",
+    "img": "img/fuegofries.png",
+    "precio": 400,
+    "categoria": "papas",
+    "descripcion": "Papas fritas sazonadas con un toque picante (pimentón, cayena o especias audaces)."
+  },
+  {
+    "id": "18",
+    "nombre": "PAPAS FUNDIDAS SUPREMAS",
+    "img": "img/papasfunduidassupremas.png",
+    "precio": 400,
+    "categoria": "papas",
+    "descripcion": "Papas fritas cubiertas con queso derretido y toppings extra como tocino o cebolla de verdeo."
+  },
+  {
+    "id": "19",
+    "nombre": "RÚSTICAS DE LA CASA",
+    "img": "img/wafflecrinkle.png",
+    "precio": 400,
+    "categoria": "papas",
+    "descripcion": "Papas con corte grueso y rústico, estilo casero."
+  },
+  {
+    "id": "20",
+    "nombre": "GARLIC & HERB STICKS",
+    "img": "img/garlic.png",
+    "precio": 400,
+    "categoria": "papas",
+    "descripcion": "Papas fritas finas con un sabor gourmet a ajo y hierbas aromáticas (perejil, romero)."
+  }
+]

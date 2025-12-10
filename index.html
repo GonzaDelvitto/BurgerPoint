@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BurgerPoint</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./css/style.css" />
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <h1 class="logo">BurgerPoint</h1>
+      <nav>
+        <a href="./index.html">Inicio</a>
+        <a href="./pages/carrito.html">Carrito <span id="cart-count">0</span></a>
+        <a href="./pages/contacto.html">Contacto</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- INTRO -->
+    <section id="intro">
+      <h2>Bienvenido a BurgerPoint</h2>
+      <p>Disfrutá las mejores hamburguesas con opciones simples, dobles y triples. ¡Personalizá tu pedido con extras y toppings!</p>
+    </section>
+
+    <!-- BOTONES FILTRO -->
+    <div class="filter-buttons container">
+      <button data-filter="simples">Simple</button>
+      <button data-filter="dobles">Doble</button>
+      <button data-filter="triples">Triple</button>
+      <button data-filter="papas">Papas Fritas</button>
+    </div>
+
+    <!-- MENÚ GENERAL -->
+    <section id="menu">
+      <!-- SIMPLES -->
+      <section class="menu-section" id="simples">
+        <h3>Hamburguesas Simples</h3>
+        <div class="menu-items-container"></div>
+      </section>
+
+      <!-- DOBLES -->
+      <section class="menu-section" id="dobles">
+        <h3>Hamburguesas Dobles</h3>
+        <div class="menu-items-container"></div>
+      </section>
+
+      <!-- TRIPLES -->
+      <section class="menu-section" id="triples">
+        <h3>Hamburguesas Triples</h3>
+        <div class="menu-items-container"></div>
+      </section>
+
+      <!-- PAPAS FRITAS -->
+      <section class="menu-section" id="papas">
+        <h3>Papas Fritas</h3>
+        <div class="menu-items-container"></div>
+      </section>
+    </section>
+  </main>
+
+  <!-- MODAL DINÁMICO ACTUALIZADO -->
+  <div id="customize-modal" class="modal hidden">
+    <div class="modal-content">
+
+      <h3 id="modal-product-name"></h3>
+      <img id="modal-product-img" />
+
+      <!-- OPCIONES DINÁMICAS SEGÚN PRODUCTO -->
+      <div id="modal-options"></div>
+
+      <!-- BOTONES -->
+      <button id="modal-add-to-cart" class="btn">Agregar al carrito</button>
+      <button id="modal-cancel" class="btn btn-cancel">Cancelar</button>
+
+    </div>
+  </div>
+
+  <!-- CARRITO FLOTANTE -->
+ <div id="cart-container"></div>
+<button id="floating-cart-btn" aria-label="Abrir carrito">🛒<span id="cart-count-float">0</span></button>
+
+
+
+  <script type="module" src="./js/index.js"></script>
+</body>
+</html>

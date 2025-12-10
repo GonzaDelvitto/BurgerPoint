@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carrito — BurgerPoint</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+<header class="site-header">
+  <div class="container header-inner">
+    <h1 class="logo">BurgerPoint</h1>
+    <nav>
+      <a href="../index.html">Inicio</a>
+      <a href="carrito.html">Carrito <span id="cart-count">0</span></a>
+      <a href="contacto.html">Contacto</a>
+    </nav>
+  </div>
+</header>
+<main class="container">
+  <div id="cart-container">
+    <!-- Aquí se muestran los items del carrito -->
+  </div>
+
+  <section id="checkout-section">
+    <h2>Finalizar compra</h2>
+    <form id="checkout-form">
+      <label>Nombre
+        <input id="customer-name" type="text" placeholder="Tu nombre" required />
+        <small class="error-msg" id="error-name"></small>
+      </label>
+      <label>Dirección
+        <input id="customer-address" type="text" placeholder="Dirección de entrega" required />
+        <small class="error-msg" id="error-address"></small>
+      </label>
+      <label>Forma de pago
+        <select id="payment-method" required>
+          <option value="">Seleccionar</option>
+          <option value="efectivo">Efectivo (5% descuento)</option>
+          <option value="mercadopago">Mercado Pago / Tarjeta</option>
+        </select>
+        <small class="error-msg" id="error-payment"></small>
+      </label>
+
+      <div id="totals" style="margin: 1rem 0;">
+        <!-- Totales se muestran acá -->
+      </div>
+
+      <button type="button" id="checkout-btn" class="btn">Enviar pedido</button>
+    </form>
+  </section>
+</main>
+
+<script type="module" src="../js/carrito.js"></script>
+</body>
+</html>
