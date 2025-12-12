@@ -123,7 +123,7 @@
     "id": "16",
     "nombre": "GOLDEN FRITES",
     "img": "img/goldenfrites.png",
-    "precio": 400,
+    "precio": 0,
     "categoria": "papas",
     "descripcion": "Papas fritas clásicas, crujientes y doradas."
   },
@@ -131,7 +131,7 @@
     "id": "17",
     "nombre": "FUEGO FRIES",
     "img": "img/fuegofries.png",
-    "precio": 400,
+    "precio": 0,
     "categoria": "papas",
     "descripcion": "Papas fritas sazonadas con un toque picante (pimentón, cayena o especias audaces)."
   },
@@ -139,7 +139,7 @@
     "id": "18",
     "nombre": "PAPAS FUNDIDAS SUPREMAS",
     "img": "img/papasfunduidassupremas.png",
-    "precio": 400,
+    "precio": 0,
     "categoria": "papas",
     "descripcion": "Papas fritas cubiertas con queso derretido y toppings extra como tocino o cebolla de verdeo."
   },
@@ -147,7 +147,7 @@
     "id": "19",
     "nombre": "RÚSTICAS DE LA CASA",
     "img": "img/wafflecrinkle.png",
-    "precio": 400,
+    "precio": 0,
     "categoria": "papas",
     "descripcion": "Papas con corte grueso y rústico, estilo casero."
   },
@@ -155,7 +155,7 @@
     "id": "20",
     "nombre": "GARLIC & HERB STICKS",
     "img": "img/garlic.png",
-    "precio": 400,
+    "precio": 0,
     "categoria": "papas",
     "descripcion": "Papas fritas finas con un sabor gourmet a ajo y hierbas aromáticas (perejil, romero)."
   }

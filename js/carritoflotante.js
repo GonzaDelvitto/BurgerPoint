@@ -1,5 +1,6 @@
 import { loadCart, saveCart } from './storage.js';
 import { updateCartCount } from './ui.js';
+import { calcTotals } from './funcionesCarrito.js'; // ✅ agregado
 
 let cart = loadCart();
 
@@ -62,21 +63,12 @@ export function renderFloatingCart(cartParam) {
     cartContainer.appendChild(div);
   });
 
-  // Calculamos total usando precio base + extras + medallones + tamaño + aderezos
-  const total = currentCart.reduce((acc, item) => {
-    let unitPrice = item.precio;
+  // ❌ ELIMINADO: el cálculo viejo que duplicaba precios
+  // ⛔ NO se usa más reduce con unitPrice
 
-    // Si es hamburguesa con medallones extra ya sumados en precio, no sumar acá, pero si usás el precio base, sumar medallonesExtra * precio por medallón si aplica.
-    // Pero ideal que precio ya tenga todo, entonces solo sumamos extras si no están incluidos.
-    // Acá asumimos que precio ya incluye medallones y extras.
-
-    // Para papas, agregamos tamaño y aderezos extra
-    if (item.categoria === 'papas') {
-      unitPrice = item.precio + (item.opts?.tamañoPrecio || 0) + (item.opts?.aderezos?.reduce((sum, a) => sum + a.price, 0) || 0);
-    }
-
-    return acc + unitPrice * item.qty;
-  }, 0);
+  // ✅ USAMOS TU FUNCIÓN calcTotals() SIN DESCUENTO
+  const totals = calcTotals(currentCart, 0);
+  const total = totals.total;
 
   const totalDiv = document.createElement('div');
   totalDiv.id = 'cart-total';

@@ -18,6 +18,7 @@
     </nav>
   </div>
 </header>
+
 <main class="container">
   <div id="cart-container">
     <!-- Aquí se muestran los items del carrito -->
@@ -26,14 +27,31 @@
   <section id="checkout-section">
     <h2>Finalizar compra</h2>
     <form id="checkout-form">
+
+      <!-- ENTREGA -->
+      <label>Entrega
+        <select id="delivery-method" required>
+          <option value="">Seleccionar</option>
+          <option value="retiro">Retiro por local (Gratis)</option>
+          <option value="delivery">Delivery</option>
+        </select>
+        <small class="error-msg" id="error-delivery"></small>
+      </label>
+
+      <!-- DIRECCIÓN SOLO SI ES DELIVERY -->
+      <label id="address-wrapper" style="display:none;">
+        Dirección
+        <input id="customer-address" type="text" placeholder="Dirección de entrega" />
+        <small class="error-msg" id="error-address"></small>
+      </label>
+
+      <!-- NOMBRE -->
       <label>Nombre
         <input id="customer-name" type="text" placeholder="Tu nombre" required />
         <small class="error-msg" id="error-name"></small>
       </label>
-      <label>Dirección
-        <input id="customer-address" type="text" placeholder="Dirección de entrega" required />
-        <small class="error-msg" id="error-address"></small>
-      </label>
+
+      <!-- PAGO -->
       <label>Forma de pago
         <select id="payment-method" required>
           <option value="">Seleccionar</option>
@@ -43,13 +61,13 @@
         <small class="error-msg" id="error-payment"></small>
       </label>
 
-      <div id="totals" style="margin: 1rem 0;">
-        <!-- Totales se muestran acá -->
-      </div>
+      <!-- TOTALES -->
+      <div id="totals" style="margin: 1rem 0;"></div>
 
       <button type="button" id="checkout-btn" class="btn">Enviar pedido</button>
     </form>
   </section>
+  
 </main>
 
 <script type="module" src="../js/carrito.js"></script>

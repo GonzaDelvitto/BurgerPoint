@@ -47,10 +47,10 @@ function renderMenu() {
     let extraInfo = '';
 
     if (product.categoria !== 'papas') {
-      extraInfo = `<small>Precio base incluye medallones: ${formatCurrency(product.precio)}</small>`;
+      // extraInfo = `<small>Precio base incluye medallones: ${formatCurrency(product.precio)}</small>`;
     } else {
       extraInfo = `
-        <small>Precios por tamaño:</small>
+         <small></small>
         <ul>
           <li>Chica +$400</li>
           <li>Mediana +$600</li>
@@ -65,7 +65,7 @@ function renderMenu() {
       <img src="${product.img}" alt="${product.nombre}" />
       <h3>${product.nombre}</h3>
       <p class="descripcion">${product.descripcion || ''}</p>
-      <p>Precio base: ${formatCurrency(product.precio)}</p>
+      <p>Precio: ${formatCurrency(product.precio)}</p>
       ${extraInfo}
       <button class="btn add-to-cart" data-id="${product.id}">🛒Agregar al Carrito🛒</button>
     `;
@@ -120,7 +120,7 @@ function handleAddToCartClick(e) {
         <legend>Quitar ingredientes:</legend>
         <label><input type="checkbox" value="Huevo"> Huevo</label><br/>
         <label><input type="checkbox" value="Cebolla"> Cebolla</label><br/>
-        <label><input type="checkbox" value="Pepinillos"> Pepinillos</label><br/>
+        <label><input type="checkbox" value="Pepinillos"> Queso</label><br/>
       </fieldset>
     `;
   } else {
@@ -137,7 +137,7 @@ function handleAddToCartClick(e) {
         <label><input type="checkbox" value="Ketchup" data-price="0"> Ketchup +$0</label><br/>
         <label><input type="checkbox" value="Mayonesa" data-price="0"> Mayonesa +$0</label><br/>
         <label><input type="checkbox" value="Cheddar" data-price="0"> Cheddar +$0</label><br/>
-        <label><input type="checkbox" value="Alioli" data-price="0"> Alioli +$0</label>
+        <label><input type="checkbox" value="Alioli" data-price="0"> Parmesano +$0</label>
       </fieldset>
     `;
   }
@@ -178,14 +178,14 @@ modalAddBtn.addEventListener('click', () => {
       opts.ingredientesQuitados.push(chk.value);
     });
 
-    // Sumá extras al precio
     const extrasTotal = opts.extras.reduce((sum, ex) => sum + ex.price, 0);
     opts.medallonesPrecio += extrasTotal;
 
   } else {
     const tamañoInput = document.querySelector('input[name="tamaño"]:checked');
-    opts.tamaño = tamañoInput.value;
-    opts.tamañoPrecio = parseInt(tamañoInput.dataset.price);
+
+    // 🔥 FIX AQUÍ — evita 4000, 6000 o 8000
+    opts.tamañoPrecio = Number(tamañoInput.dataset.price);
 
     opts.aderezos = [];
     document.querySelectorAll('#opt-aderezos input:checked').forEach(chk => {
@@ -196,7 +196,6 @@ modalAddBtn.addEventListener('click', () => {
     });
   }
 
-  // Creá una copia del producto con precio actualizado para el carrito
   const productToAdd = {
     ...currentProduct,
     precio: currentProduct.categoria !== 'papas' 

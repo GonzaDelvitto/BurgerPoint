@@ -1,8 +1,8 @@
 // funcionesCarrito.js
 
+// Agregar al carrito
 export function addToCart(cart, product, opts = {}) {
-  // opts: { medallones: 1, medallonesPrecio, extras: [], tamaño, tamañoPrecio, aderezos: [] }
-
+  // opts solo describe las opciones elegidas, no deben recalcular precio
   const existing = cart.find(
     i => i.id === product.id && JSON.stringify(i.opts) === JSON.stringify(opts)
   );
@@ -13,47 +13,34 @@ export function addToCart(cart, product, opts = {}) {
     cart.push({
       id: product.id,
       nombre: product.nombre,
-      precio: product.precio,
+      precio: product.precio,   // PRECIO FINAL POR UNIDAD (calculo del modal)
       img: product.img,
-      categoria: product.categoria,  // Para diferenciar papas y hamburguesas
+      categoria: product.categoria,
       qty: 1,
-      opts,
+      opts,                     // Solo descripción de opciones
     });
   }
 
   return cart;
 }
 
+// Actualizar cantidad
 export function updateQty(cart, index, qty) {
   if (qty <= 0) {
-    cart.splice(index, 1); // eliminar ítem si qty <= 0
+    cart.splice(index, 1);
   } else {
     cart[index].qty = qty;
   }
   return cart;
 }
 
+// Calcular totales
 export function calcTotals(cart, cashDiscountPercent = 5) {
-  let subtotal = 0;
 
-  for (const it of cart) {
-    if (it.categoria === 'papas') {
-      // Para papas: precio base + tamaño + aderezos
-      const tamañoPrecio = it.opts?.tamañoPrecio || 0;
-      const aderezos = it.opts?.aderezos || [];
-      const aderezosTotal = aderezos.reduce((sum, a) => sum + (a.price || 0), 0);
-
-      const unitPrice = it.precio + tamañoPrecio + aderezosTotal;
-      subtotal += unitPrice * it.qty;
-    } else {
-      // Para hamburguesas: usamos el precio real de los medallones que guardamos en opts
-      const medallonesPrecio = it.opts?.medallonesPrecio ?? it.precio;
-      const extrasTotal = (it.opts?.extras || []).reduce((sum, ex) => sum + (ex.price || 0), 0);
-
-      const unitPrice = medallonesPrecio + extrasTotal;
-      subtotal += unitPrice * it.qty;
-    }
-  }
+  // AHORA NO SE RECALCULA NADA, SOLO SE USA EL PRECIO FINAL POR UNIDAD
+  const subtotal = cart.reduce((sum, item) => {
+    return sum + (item.precio * item.qty);
+  }, 0);
 
   const discount = cashDiscountPercent
     ? (subtotal * cashDiscountPercent) / 100
