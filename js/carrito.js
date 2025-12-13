@@ -289,7 +289,7 @@ checkoutBtn.addEventListener('click', () => {
   msg += `\n*Nombre:* ${name}`;
   msg += `\n*Total:* $${total.toLocaleString('es-AR')}`;
 
-  const url = `https://wa.me/5491166784500?text=${encodeURIComponent(msg)}`;
+  const url = `https://wa.me/5491123456789?text=${encodeURIComponent(msg)}`;
   window.open(url, '_blank');
 });
 
